@@ -9,8 +9,8 @@ const recipe_utils = require("./utils/recipes_utils");
  */
 router.use(async function (req, res, next) {
   if (req.session && req.session.user_id) {
-    DButils.execQuery("SELECT user_id FROM users").then((users) => {
-      if (users.find((x) => x.user_id === req.session.user_id)) {
+    DButils.execQuery("SELECT username FROM users").then((users) => {
+      if (users.find((x) => x.username === req.session.user_id)) {
         req.user_id = req.session.user_id;
         next();
       }
@@ -19,6 +19,8 @@ router.use(async function (req, res, next) {
     res.sendStatus(401);
   }
 });
+
+
 
 
 /**
@@ -45,7 +47,9 @@ router.get('/favorites', async (req,res,next) => {
     const recipes_id = await user_utils.getFavoriteRecipes(user_id);
     let recipes_id_array = [];
     recipes_id.map((element) => recipes_id_array.push(element.recipe_id)); //extracting the recipe ids into array
-    const results = await recipe_utils.getRecipesPreview(recipes_id_array);
+   // const results = await recipe_utils.getRecipesPreview(recipes_id_array);
+
+    const results = await recipe_utils.getRecipeDetails(recipes_id_array[0]);
     res.status(200).send(results);
   } catch(error){
     next(error); 

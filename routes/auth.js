@@ -4,6 +4,8 @@ const MySql = require("../routes/utils/MySql");
 const DButils = require("../routes/utils/DButils");
 const bcrypt = require("bcrypt");
 
+
+
 router.post("/Register", async (req, res, next) => {
   try {
     // parameters exists
@@ -15,8 +17,8 @@ router.post("/Register", async (req, res, next) => {
       lastname: req.body.lastname,
       country: req.body.country,
       password: req.body.password,
-      email: req.body.email,
-      profilePic: req.body.profilePic
+      email: req.body.email
+      //profilePic: req.body.profilePic
     }
     let users = [];
     users = await DButils.execQuery("SELECT username from users");
@@ -58,7 +60,7 @@ router.post("/Login", async (req, res, next) => {
     }
 
     // Set cookie
-    req.session.user_id = user.user_id;
+    req.session.user_id = user.username;
 
 
     // return cookie
