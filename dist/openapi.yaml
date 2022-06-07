@@ -133,6 +133,25 @@ paths:
                 $ref: '#/components/schemas/RecipePreview'
         "404":
           description: recipeId is not exists
+  /recipes/random:
+    get:
+      tags:
+      - Recipes
+      summary: Return Three Random Recipes
+      description: Get an array of Three Random Recipes
+      responses:
+        "200":
+          description: data about Three Random Recipes returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
 components:
   schemas:
     User:
