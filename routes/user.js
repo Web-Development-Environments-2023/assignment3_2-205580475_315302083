@@ -74,7 +74,7 @@ router.post('/FamilyRecipes', async (req,res,next) => {
     const recipe_Number_of_portions = req.body.Number_of_portions;
     await user_utils.AddFamilyRecipe(username,recipe_Name,recipe_url,recipe_time_to_make,recipe_popularity,
     recipe_is_vegeterian,recipe_is_vegan,recipe_containsgluten,recipe_ingredients,recipe_instructions,recipe_Number_of_portions);
-    res.status(200).send("The Family Recipe was added");
+    res.status(200).send("New Family Recipe was added");
     } catch(error){
     next(error);
   }
@@ -90,6 +90,43 @@ router.get('/FamilyRecipes', async (req,res,next) => {
     //let recipes_id_array = [];
     //recipes_id.map((element) => {recipes_id_array.push(element.id)}); //extracting the recipe ids into array
     const results = await recipe_utils.getFamilyRecipebyID(recipes_id);
+    res.status(200).send(results);
+  } catch(error){
+    next(error); 
+  }
+});
+
+router.post('/MyRecipes', async (req,res,next) => {
+  try{
+    const username = req.session.user_id;
+    const title = req.body.title;
+    const readyInMinutes = req.body.readyInMinutes;
+    const image = req.body.image;
+    const popularity = req.body.popularity;
+    const vegan = req.body.vegan;
+    const vegetarian=req.body.vegetarian;
+    const glutenFree = req.body.glutenFree;
+    const extendedIngredients = req.body.extendedIngredients;
+    const instructions= req.body.instructions;
+    const servings = req.body.servings;
+    await user_utils.AddMyRecipe(username,title,readyInMinutes,image,popularity,vegan,
+      vegetarian,glutenFree,extendedIngredients,instructions,servings);
+    res.status(200).send("New My Recipe was added");
+    } catch(error){
+    next(error);
+  }
+})
+
+/**
+ * This path returns the favorites recipes that were saved by the logged-in user
+ */
+router.get('/MyRecipes', async (req,res,next) => {
+  try{
+    const user_id = req.session.user_id;
+    const recipes_id = await user_utils.getMyRecipesId(user_id);
+    //let recipes_id_array = [];
+    //recipes_id.map((element) => {recipes_id_array.push(element.id)}); //extracting the recipe ids into array
+    const results = await recipe_utils.getMyRecipebyID(recipes_id);
     res.status(200).send(results);
   } catch(error){
     next(error); 

@@ -58,8 +58,25 @@ async function getRecipeByName(recipe_name,num_of_recipes) {
         return getMultipleRecipesPreview(l);
         }    
 
-    
+        
+async function getRecipeFullDetails(recipe_id) {
+    let recipe_info = await getRecipeInformation(recipe_id);
+    let { id, title, readyInMinutes, image, aggregateLikes, vegan, vegetarian, glutenFree,extendedIngredients,instructions,servings } = recipe_info.data;
 
+    return {
+        id: id,
+        title: title,
+        readyInMinutes: readyInMinutes,
+        image: image,
+        popularity: aggregateLikes,
+        vegan: vegan,
+        vegetarian: vegetarian,
+        glutenFree: glutenFree,
+        extendedIngredients:extendedIngredients,
+        instructions:instructions,
+        servings:servings,
+    }
+}
 
 async function getRecipeDetails(recipe_id) {
     let recipe_info = await getRecipeInformation(recipe_id);
@@ -109,6 +126,8 @@ async function getFamilyRecipebyID(recipes_list) {
     });
     }
 
+async function getMyRecipebyID(recipes_list) {
+        return getMultipleRecipesPreview(recipes_list);}
 
 
 function getMultipleRecipesPreview(recipes_list) {
@@ -119,7 +138,7 @@ function getMultipleRecipesPreview(recipes_list) {
             title,
             readyInMinutes,
             image,
-            aggregateLikes,
+            popularity,
             vegan,
             vegetarian,
             glutenFree,}=data;
@@ -128,11 +147,10 @@ function getMultipleRecipesPreview(recipes_list) {
                 title: title,
                 readyInMinutes: readyInMinutes,
                 image: image,
-                popularity: aggregateLikes,
+                popularity: popularity,
                 vegan: vegan,
                 vegetarian: vegetarian,
                 glutenFree: glutenFree,
-                
             }
 
         });
@@ -150,3 +168,5 @@ exports.getThreeRandomRecipes = getThreeRandomRecipes;
 exports.getRecipebyID=getRecipebyID;
 exports.getRecipeByName=getRecipeByName;
 exports.getFamilyRecipebyID=getFamilyRecipebyID;
+exports.getRecipeFullDetails=getRecipeFullDetails
+exports.getMyRecipebyID=getMyRecipebyID

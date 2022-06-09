@@ -43,6 +43,15 @@ router.get("/w", async (req, res, next) => {
   
   });
   
+  router.get("/FullRecipe", async (req, res, next) => {
+    try {
+      const recipe = await recipes_utils.getRecipeFullDetails(req.body.recipeId);
+      res.send(recipe);
+    } catch (error) {
+      next(error);
+    }
+  
+  });
 
 router.get("/:recipeId", async (req, res, next) => {
   try {
