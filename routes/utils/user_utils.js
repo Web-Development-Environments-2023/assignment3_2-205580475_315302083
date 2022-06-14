@@ -28,6 +28,13 @@ async function getFamilyRecipesId(user_id){
     const recipes_id = await DButils.execQuery(`SELECT * FROM FamilyRecipes where username='${user_id}'`);
     return recipes_id;
 }
+
+async function getFamilyRecipesRecipeByID(user_id,recipeId){
+    const recipes_id = await DButils.execQuery(`SELECT * FROM FamilyRecipes where username='${user_id} and id='${recipeId}''`);
+    return recipes_id;
+}
+
+
 async function AddMyRecipe(username,title,readyInMinutes,image,popularity,vegan,
     vegetarian,glutenFree,extendedIngredients,instructions,servings){
 
@@ -40,6 +47,10 @@ async function getMyRecipesId(user_id){
     return recipes_id;
 }
 
+async function getMyRecipesRecipeByID(user_id,recipeId){
+    const recipes_id = await DButils.execQuery(`SELECT * FROM MyRecipes where username='${user_id}' and id='${recipeId}'`);
+    return recipes_id;
+}
 
 
 exports.markAsFavorite = markAsFavorite;
@@ -50,3 +61,5 @@ exports.AddFamilyRecipe=AddFamilyRecipe;
 exports.getFamilyRecipesId=getFamilyRecipesId;
 exports.AddMyRecipe=AddMyRecipe
 exports.getMyRecipesId=getMyRecipesId
+exports.getMyRecipesRecipeByID=getMyRecipesRecipeByID
+exports.getFamilyRecipesRecipeByID=getFamilyRecipesRecipeByID

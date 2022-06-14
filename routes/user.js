@@ -87,14 +87,14 @@ router.get('/FamilyRecipes', async (req,res,next) => {
   try{
     const user_id = req.session.user_id;
     const recipes_id = await user_utils.getFamilyRecipesId(user_id);
-    //let recipes_id_array = [];
-    //recipes_id.map((element) => {recipes_id_array.push(element.id)}); //extracting the recipe ids into array
     const results = await recipe_utils.getFamilyRecipebyID(recipes_id);
     res.status(200).send(results);
   } catch(error){
     next(error); 
   }
 });
+
+
 
 router.post('/MyRecipes', async (req,res,next) => {
   try{
@@ -127,6 +127,20 @@ router.get('/MyRecipes', async (req,res,next) => {
     //let recipes_id_array = [];
     //recipes_id.map((element) => {recipes_id_array.push(element.id)}); //extracting the recipe ids into array
     const results = await recipe_utils.getMyRecipebyID(recipes_id);
+    res.status(200).send(results);
+  } catch(error){
+    next(error); 
+  }
+});
+
+router.get('/MyRecipes/:recipeId', async (req,res,next) => {
+  try{
+    const user_id = req.session.user_id;
+    const id = await user_utils.getMyRecipesRecipeByID(user_id,req.params.recipeId);
+    if (id.length===0){
+      res.status(400).send("recipeId not found")
+    }
+    const results = await recipe_utils.getMyRecipeFullDetails(id[0]);
     res.status(200).send(results);
   } catch(error){
     next(error); 

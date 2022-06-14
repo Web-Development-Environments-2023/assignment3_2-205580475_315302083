@@ -126,6 +126,36 @@ async function getFamilyRecipebyID(recipes_list) {
     });
     }
 
+async function getMyRecipeFullDetails(recipe) {
+            let data=recipe;
+            const{
+            id,
+            title,
+            readyInMinutes,
+            image,
+            popularity,
+            vegan,
+            vegetarian,
+            glutenFree,
+            extendedIngredients,
+            instructions,
+            servings,
+            }=data;
+            return {
+                id: id,
+                title:title,
+                readyInMinutes: readyInMinutes,
+                image: image,
+                popularity: popularity,
+                vegan: vegan,
+                vegetarian: vegetarian,
+                glutenFree: glutenFree,
+                extendedIngredients: extendedIngredients,
+                instructions:instructions,
+                servings: servings,
+            };
+        }
+
 async function getMyRecipebyID(recipes_list) {
         return getMultipleRecipesPreview(recipes_list);}
 
@@ -151,6 +181,7 @@ function getMultipleRecipesPreview(recipes_list) {
                 vegan: vegan,
                 vegetarian: vegetarian,
                 glutenFree: glutenFree,
+
             }
 
         });
@@ -170,3 +201,4 @@ exports.getRecipeByName=getRecipeByName;
 exports.getFamilyRecipebyID=getFamilyRecipebyID;
 exports.getRecipeFullDetails=getRecipeFullDetails
 exports.getMyRecipebyID=getMyRecipebyID
+exports.getMyRecipeFullDetails=getMyRecipeFullDetails
