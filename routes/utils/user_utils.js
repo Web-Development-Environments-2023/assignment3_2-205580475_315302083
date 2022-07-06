@@ -30,7 +30,7 @@ async function getFamilyRecipesId(user_id){
 }
 
 async function getFamilyRecipesRecipeByID(user_id,recipeId){
-    const recipes_id = await DButils.execQuery(`SELECT * FROM FamilyRecipes where username='${user_id} and id='${recipeId}''`);
+    const recipes_id = await DButils.execQuery(`SELECT * FROM FamilyRecipes where username='${user_id}' and id='${recipeId}'`);
     return recipes_id;
 }
 

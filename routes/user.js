@@ -94,6 +94,20 @@ router.get('/FamilyRecipes', async (req,res,next) => {
   }
 });
 
+router.get('/FamilyRecipes/:recipeId', async (req,res,next) => {
+  try{
+    const user_id = req.session.user_id;
+    const id = await user_utils.getFamilyRecipesRecipeByID(user_id,req.params.recipeId);
+    if (id.length===0){
+      res.status(400).send("recipeId not found")
+    }
+    const results = await recipe_utils.getMyFamilyRecipeFullDetails(id[0]);
+    res.status(200).send(results);
+  } catch(error){
+    next(error); 
+  }
+});
+
 
 
 router.post('/MyRecipes', async (req,res,next) => {

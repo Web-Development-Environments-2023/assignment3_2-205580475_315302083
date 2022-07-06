@@ -99,31 +99,73 @@ async function getFamilyRecipebyID(recipes_list) {
     return recipes_list.map((recipe_info)=> {
         let data=recipe_info;
         const{
-        recipe_name,
-        image_url,
-        time_to_make,
-        popularity,
-        is_vegetarian,
-        is_vegan,
-        contains_gluten,
-        ingredients,
-        instructions,
-        number_of_portions,
+            id,
+            recipe_name,
+            image_url,
+            time_to_make,
+            popularity,
+            is_vegetarian,
+            is_vegan,
+            contains_gluten,
+            ingredients,
+            instructions,
+            number_of_portions,
         }=data;
         return {
-            recipe_name: recipe_name,
-            image_url: image_url,
-            time_to_make: time_to_make,
+            // recipe_name: recipe_name,
+            // image_url: image_url,
+            // time_to_make: time_to_make,
+            // popularity: popularity,
+            // is_vegetarian:is_vegetarian,
+            // is_vegan: is_vegan,
+            // contains_gluten: contains_gluten,
+            // ingredients: ingredients,
+            // instructions: instructions,
+            // number_of_portions: number_of_portions,  
+            id: id, 
+            title: recipe_name,
+            image: image_url,
+            readyInMinutes: time_to_make,
             popularity: popularity,
-            is_vegetarian:is_vegetarian,
-            is_vegan: is_vegan,
-            contains_gluten: contains_gluten,
-            ingredients: ingredients,
+            vegetarian:is_vegetarian,
+            vegan: is_vegan,
+            glutenFree: contains_gluten,
+            extendedIngredients: ingredients,
             instructions: instructions,
-            number_of_portions: number_of_portions,   
+            servings: number_of_portions,  
         }
 
     });
+    }
+
+async function getMyFamilyRecipeFullDetails(recipe) {
+        let data=recipe;
+        const{
+            id,
+            recipe_name,
+            image_url,
+            time_to_make,
+            popularity,
+            is_vegetarian,
+            is_vegan,
+            contains_gluten,
+            ingredients,
+            instructions,
+            number_of_portions,
+        }=data;
+        return {
+            id: id, 
+            title: recipe_name,
+            image: image_url,
+            readyInMinutes: time_to_make,
+            popularity: popularity,
+            vegetarian:is_vegetarian,
+            vegan: is_vegan,
+            glutenFree: contains_gluten,
+            extendedIngredients: ingredients,
+            instructions: instructions,
+            servings: number_of_portions,
+        };
     }
 
 async function getMyRecipeFullDetails(recipe) {
@@ -202,3 +244,4 @@ exports.getFamilyRecipebyID=getFamilyRecipebyID;
 exports.getRecipeFullDetails=getRecipeFullDetails
 exports.getMyRecipebyID=getMyRecipebyID
 exports.getMyRecipeFullDetails=getMyRecipeFullDetails
+exports.getMyFamilyRecipeFullDetails=getMyFamilyRecipeFullDetails
